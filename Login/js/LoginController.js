@@ -1,5 +1,5 @@
 /* Doctor Registeration */
-scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaService, $interval, popUpCalled, ajaxGetResponse, mapper) {
+scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaService, $interval, popUpCalled, ajaxGetResponse, requestMapper) {
 
     $scope.spinner = false;
     $scope.confirm = false;

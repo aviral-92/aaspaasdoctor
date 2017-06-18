@@ -1,4 +1,4 @@
-scotchApp.service('mapper', function ($http) {
+scotchApp.service('requestMapper', function ($http) {
 
     this.doctorRegistrationMapper = function (doctorRegistrationUiObj) {
 
@@ -57,6 +57,5 @@ scotchApp.service('mapper', function ($http) {
         }
 
         return updateDoctorJavaObj;
-
     }
 });
