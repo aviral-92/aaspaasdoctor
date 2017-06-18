@@ -1,4 +1,9 @@
 scotchApp.service('ajaxGetResponse', function ($http) {
+    
+    this.doctorRegistration = function (doctorRegistrationObj) {
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/doctor/signup', doctorRegistrationObj);
+        return serverResponse;
+    }
 
     this.getAllExpertise = function () {
         var serverResponse = $http.get('https://doctors.cfapps.io/api/doctor/get/all/expertisation');
