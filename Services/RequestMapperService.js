@@ -1,4 +1,4 @@
-scotchApp.service('requestMapper', function ($http) {
+scotchApp.service('requestMapper', function () {
 
     this.doctorRegistrationMapper = function (doctorRegistrationUiObj) {
 
@@ -41,37 +41,24 @@ scotchApp.service('requestMapper', function ($http) {
             "selfDescription": updateDoctorUiObj.selfDescription, //TODO need to add this field.
             "state": updateDoctorUiObj.state,
             "tandCAccepted": updateDoctorUiObj.tandCAccepted, //TODO need to validate this field.
-            "timing": updateDoctorUiObj.timing
+            "timing": updateDoctorUiObj.timing,
+            "aadhaar": updateDoctorUiObj.adhaar,
+            "mobile": updateDoctorUiObj.mobile,
+            "password": updateDoctorUiObj.password
         }
-        if (updateDoctorUiObj.adhaar != null) {
-            updateDoctorJavaObj.aadhaar: updateDoctorUiObj.adhaar
-        }
-        if (updateDoctorUiObj.mobile != null) {
-            updateDoctorJavaObj.mobile: updateDoctorUiObj.mobile
-        }
-        if (updateDoctorUiObj.email != null) {
-            updateDoctorJavaObj.email: updateDoctorUiObj.email
-        }
-        if (updateDoctorUiObj.password != null) {
-            updateDoctorJavaObj.password: updateDoctorUiObj.password
-        }
-
         return updateDoctorJavaObj;
     }
-    
+
     this.loginDoctor = function (loginDoctorUiObj) {
-        
+
         var loginDoctorJavaObj = {
-            "password" : loginDoctorUiObj.password,
-            "type" : "d",
-            "encode" : false
+            "password": loginDoctorUiObj.password,
+            "type": "d",
+            "encode": false,
+            "email": loginDoctorUiObj.email,
+            "mobile": loginDoctorUiObj.mobile
         }
-        if(loginDoctorUiObj.email != null){
-            loginDoctorJavaObj.email : loginDoctorUiObj.email
-        }
-         if(loginDoctorUiObj.mobile != null){
-            loginDoctorJavaObj.mobile : loginDoctorUiObj.mobile
-        }
+
         return loginDoctorJavaObj;
     }
 });

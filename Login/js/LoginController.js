@@ -100,19 +100,21 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
 
 /* Doctor Login */
 scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies, vcRecaptchaService,
-        $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper) {
+    $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper) {
 
-        $scope.spinner = false;
-        var vm = this;
-        //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
-        //$scope.loader = false;
-        function callAtInterval() {
-            console.log("Interval occurred");
-            $window.location.reload();
-            console.log("Interval finished");
-        }
+    $scope.spinner = false;
+    var vm = this;
+    //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
+    //$scope.loader = false;
+    function callAtInterval() {
+        console.log("Interval occurred");
+        $window.location.reload();
+        console.log("Interval finished");
+    }
 
+    $scope.doctorLogin = function (loginDetail) {
         var docLoginRestObj = requestMapper.loginDoctor(loginDetail);
+
         var loginSuccessful = ajaxGetResponse.doctorLogin(docLoginRestObj);
         $scope.spinner = true;
         loginSuccessful.success(function (login) {
@@ -147,6 +149,7 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
                 .ok('Ok!')
             );
         });
+    }
     /*}
 
 }
@@ -156,31 +159,31 @@ else {
     $window.location.href = "#/loginPage"; // TODO, change URL, need to redirect on dashboard.
     $scope.message = 'Invalid Credentials...try again';
 }*/
-// add validation for adhaar number
-$scope.doBlurAdhar = function ($event) {
-    var target = $event.target;
-    if ($scope.doctor != null && $scope.doctor.aadhaarNumber != null &&
-        $scope.doctor.aadhaarNumber.length == 12) {
-        target.blur();
-    } else {
-        target.focus();
+    // add validation for adhaar number
+    $scope.doBlurAdhar = function ($event) {
+        var target = $event.target;
+        if ($scope.doctor != null && $scope.doctor.aadhaarNumber != null &&
+            $scope.doctor.aadhaarNumber.length == 12) {
+            target.blur();
+        } else {
+            target.focus();
+        }
     }
-}
-//----------------------------- code for forgot password dialogue box timings 
-$(function () {
-    $('#myModal1').on('show.bs.modal', function () {
-        var myModal = $(this);
-        clearTimeout(myModal.data('hideInterval'));
-        myModal.data('hideInterval', setTimeout(function () {
-            myModal.modal('hide');
-        }, 4000));
+    //----------------------------- code for forgot password dialogue box timings 
+    $(function () {
+        $('#myModal1').on('show.bs.modal', function () {
+            var myModal = $(this);
+            clearTimeout(myModal.data('hideInterval'));
+            myModal.data('hideInterval', setTimeout(function () {
+                myModal.modal('hide');
+            }, 4000));
+        });
     });
-});
-//------------------------------ code for forgot password dialogue box timings
-$scope.init = function () {
-//        console.log("doctor " + $scope.testInput);
+    //------------------------------ code for forgot password dialogue box timings
+    $scope.init = function () {
+        //        console.log("doctor " + $scope.testInput);
 
-};
+    };
 });
 /* Doctor Login */
 
