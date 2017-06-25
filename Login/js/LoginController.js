@@ -67,7 +67,7 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
         }*/
 
         //Object Conversion
-        var docRegistrationRestObj = mapper.doctorRegistrationMapper(DocRegisteration);
+        var docRegistrationRestObj = requestMapper.doctorRegistrationMapper(DocRegisteration);
 
         var drSignUp = ajaxGetResponse.doctorRegistration(docRegistrationRestObj);
         $scope.spinner = true;
@@ -99,151 +99,88 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
 
 
 /* Doctor Login */
-scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies, vcRecaptchaService, $mdDialog, $interval) {
+scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies, vcRecaptchaService,
+        $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper) {
 
-    $scope.spinner = false;
-    var vm = this;
-    vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
+        $scope.spinner = false;
+        var vm = this;
+        //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
+        //$scope.loader = false;
+        function callAtInterval() {
+            console.log("Interval occurred");
+            $window.location.reload();
+            console.log("Interval finished");
+        }
+
+        var docLoginRestObj = requestMapper.loginDoctor(loginDetail);
+        var loginSuccessful = ajaxGetResponse.doctorLogin(docLoginRestObj);
+        $scope.spinner = true;
+        loginSuccessful.success(function (login) {
+
+            //if (login.message == 'success') {
 
 
-    //$scope.loader = false;
-    if ($cookieStore.get('doctorLoginData') == undefined) {
-
-
-        $scope.doctorLogin = function (loginDetail) {
-
-            try {
-                if (vcRecaptchaService.getResponse() === "") { //if string is empty
-                    alert("Please resolve the captcha and submit!")
-                } else {
-                    var post_data = { //prepare payload for request
-                        'g-recaptcha-response': vcRecaptchaService.getResponse() //send g-captcah-reponse to our server
-                    }
-                    console.log(post_data);
-                    /* Make Ajax request to our server with g-captcha-string */
-                    //Need to give our API to validate
-                    var captcha = $http.post('http://code.ciphertrick.com/demo/phpapi/api/signup', post_data);
-
-                    captcha.success(function (response) {
-                        if (response.error === 0) {
-                            alert("Successfully verified and signed up the user");
-                        } else {
-                            //alert("User verification failed");
-                        }
-                    });
-                    captcha.error(function (error) {
-                        //alert("Captch invalid")
-                    });
-                    captcha.catch(function (error) {
-
-                        // alert("Got In Catch");
-                    });
-                }
-            } catch (error) {
+            var doctorSuccess = ajaxGetResponse.getDoctorByDoctorId(login.typeId);
+            doctorSuccess.success(function (doctorObj) {
+                doctorObj.src = '/images/no_pic.png';
+                var doctorJavaToUiObj = responseMapper.getDoctor(doctorObj);
+                $cookieStore.put('doctorLoginData', doctorJavaToUiObj);
                 $scope.spinner = false;
-                $mdDialog.show(
-                    $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#dialogContainer')))
-                    .clickOutsideToClose(true)
-                    .title('Incorrect Captcha')
-                    .textContent('Loading Again')
-                    .ariaLabel('Loading Again')
-                    .ok('Ok!')
-                );
-                $interval(callAtInterval, 2200);
-
-            }
-
-            function callAtInterval() {
-                console.log("Interval occurred");
-                $window.location.reload();
-                console.log("Interval finished");
-            }
-
-            //            loginDetail.username = loginDetail.email;
-            loginDetail.type = 'd';
-            var loginSuccessful = $http
-                .post("https://doctors.cfapps.io/api/login/drlogin", loginDetail);
-            $scope.spinner = true;
-            loginSuccessful.success(function (login) {
-
-                if (login.message == 'success') {
-                    if (loginDetail.username.includes('@')) {
-                        var doctorSuccess = $http.get("https://doctors.cfapps.io/api/doctor/get/" + loginDetail.username + "/email");
-                        doctorSuccess.success(function (doctorObj) {
-                            doctorObj.src = '/images/no_pic.png';
-                            $cookieStore.put('doctorLoginData', doctorObj);
-                            $scope.spinner = false;
-                            $window.location.href = "/DoctorDashboard.html#/home";
-                        });
-                        doctorSuccess.error(function (data, status, headers, config) {
-                            /* alert("failure message: " + data);*/
-                        });
-                    } else {
-                        var doctorSuccess = $http.get("https://doctors.cfapps.io/api/doctor/get/" + loginDetail.username + "/mobile");
-                        doctorSuccess.success(function (doctorObj) {
-                            $cookieStore.put('doctorLoginData', doctorObj);
-                            $scope.spinner = false;
-                            $window.location.href = "/DoctorDashboard.html#/home";
-                        });
-                        doctorSuccess.error(function (data, status, headers, config) {
-                            /* alert("failure message: " + data);*/
-                        });
-                    }
-                } else {
-                    $scope.spinner = false;
-                    alert('Wrong Credentials');
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('#dialogContainer')))
-                        .clickOutsideToClose(true)
-                        .title('Wrong Credentials')
-                        .textContent('Username or password is wrong')
-                        .ariaLabel('Username or password is wrong')
-                        .ok('Ok!')
-                    );
-
-                }
-                //$scope.loader = false;
-
+                $window.location.href = "/DoctorDashboard.html#/home";
             });
-            loginSuccessful.error(function (data, status, headers, config) {
-                //                alert("failure message: " + data);
-                $scope.message = 'Invalid Credentials...!!!';
-            });
-        }
+            doctorSuccess.error(function (data, status, headers, config) {});
+            //$scope.loader = false;
 
-    } else {
-        $cookieStore.remove("email");
-        $cookieStore.remove("loginData");
-        $window.location.href = "#/loginPage"; // TODO, change URL, need to redirect on dashboard.
-        $scope.message = 'Invalid Credentials...try again';
-    }
-    // add validation for adhaar number
-    $scope.doBlurAdhar = function ($event) {
-        var target = $event.target;
-        if ($scope.doctor != null && $scope.doctor.aadhaarNumber != null &&
-            $scope.doctor.aadhaarNumber.length == 12) {
-            target.blur();
-        } else {
-            target.focus();
-        }
-    }
-    //----------------------------- code for forgot password dialogue box timings 
-    $(function () {
-        $('#myModal1').on('show.bs.modal', function () {
-            var myModal = $(this);
-            clearTimeout(myModal.data('hideInterval'));
-            myModal.data('hideInterval', setTimeout(function () {
-                myModal.modal('hide');
-            }, 4000));
         });
-    });
-    //------------------------------ code for forgot password dialogue box timings
-    $scope.init = function () {
-        //        console.log("doctor " + $scope.testInput);
+        loginSuccessful.error(function (data, status, headers, config) {
+            //                alert("failure message: " + data);
+            $scope.message = 'Invalid Credentials...!!!';
+            $scope.spinner = false;
+            alert('Wrong Credentials');
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#dialogContainer')))
+                .clickOutsideToClose(true)
+                .title('Wrong Credentials')
+                .textContent('Username or password is wrong')
+                .ariaLabel('Username or password is wrong')
+                .ok('Ok!')
+            );
+        });
+    /*}
 
-    };
+}
+else {
+    $cookieStore.remove("email");
+    $cookieStore.remove("loginData");
+    $window.location.href = "#/loginPage"; // TODO, change URL, need to redirect on dashboard.
+    $scope.message = 'Invalid Credentials...try again';
+}*/
+// add validation for adhaar number
+$scope.doBlurAdhar = function ($event) {
+    var target = $event.target;
+    if ($scope.doctor != null && $scope.doctor.aadhaarNumber != null &&
+        $scope.doctor.aadhaarNumber.length == 12) {
+        target.blur();
+    } else {
+        target.focus();
+    }
+}
+//----------------------------- code for forgot password dialogue box timings 
+$(function () {
+    $('#myModal1').on('show.bs.modal', function () {
+        var myModal = $(this);
+        clearTimeout(myModal.data('hideInterval'));
+        myModal.data('hideInterval', setTimeout(function () {
+            myModal.modal('hide');
+        }, 4000));
+    });
+});
+//------------------------------ code for forgot password dialogue box timings
+$scope.init = function () {
+//        console.log("doctor " + $scope.testInput);
+
+};
 });
 /* Doctor Login */
 

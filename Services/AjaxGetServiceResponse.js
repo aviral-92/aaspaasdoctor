@@ -1,7 +1,27 @@
 scotchApp.service('ajaxGetResponse', function ($http) {
-    
+
     this.doctorRegistration = function (doctorRegistrationObj) {
         var serverResponse = $http.get('https://doctor.cfapps.io/api/doctor/signup', doctorRegistrationObj);
+        return serverResponse;
+    }
+
+    this.doctorLogin = function (doctorLoginObj) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/login/validate', doctorLoginObj);
+        return serverResponse;
+    }
+
+    this.getDoctorByMobile = function (mobile) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + mobile + '/mobile');
+        return serverResponse;
+    }
+
+    this.getDoctorByEmail = function (email) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + email + '/email');
+        return serverResponse;
+    }
+
+    this.getDoctorByDoctorId = function (dId) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + dId + '/id');
         return serverResponse;
     }
 

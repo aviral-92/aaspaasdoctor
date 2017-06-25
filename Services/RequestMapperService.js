@@ -58,4 +58,20 @@ scotchApp.service('requestMapper', function ($http) {
 
         return updateDoctorJavaObj;
     }
+    
+    this.loginDoctor = function (loginDoctorUiObj) {
+        
+        var loginDoctorJavaObj = {
+            "password" : loginDoctorUiObj.password,
+            "type" : "d",
+            "encode" : false
+        }
+        if(loginDoctorUiObj.email != null){
+            loginDoctorJavaObj.email : loginDoctorUiObj.email
+        }
+         if(loginDoctorUiObj.mobile != null){
+            loginDoctorJavaObj.mobile : loginDoctorUiObj.mobile
+        }
+        return loginDoctorJavaObj;
+    }
 });

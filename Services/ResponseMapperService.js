@@ -34,7 +34,8 @@ scotchApp.service('responseMapper', function ($http) {
             "profilePicPath": DoctorJavaObj.profilePicPath,
             "createdDate": DoctorJavaObj.createdDate,
             "updatedDate": DoctorJavaObj.updatedDate,
-            "description": DoctorJavaObj.desc
+            "description": DoctorJavaObj.desc,
+            "src": DoctorJavaObj.src
         }
         return doctorUiObj;
     }
