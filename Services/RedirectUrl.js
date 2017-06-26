@@ -5,6 +5,6 @@ scotchApp.service('urlRedirect', function () {
     }
 
     this.signout = function () {
-        return '/QA/index.html/#/loginPage';
+        return '/QA/index.html#/loginPage';
     }
 });
