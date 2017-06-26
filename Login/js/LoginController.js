@@ -114,14 +114,11 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
 
     $scope.doctorLogin = function (loginDetail) {
         var docLoginRestObj = requestMapper.loginDoctor(loginDetail);
-
+        
         var loginSuccessful = ajaxGetResponse.doctorLogin(docLoginRestObj);
         $scope.spinner = true;
         loginSuccessful.success(function (login) {
-
             //if (login.message == 'success') {
-
-
             var doctorSuccess = ajaxGetResponse.getDoctorByDoctorId(login.typeId);
             doctorSuccess.success(function (doctorObj) {
                 doctorObj.src = '/images/no_pic.png';

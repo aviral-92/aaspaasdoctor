@@ -54,11 +54,17 @@ scotchApp.service('requestMapper', function () {
         var loginDoctorJavaObj = {
             "password": loginDoctorUiObj.password,
             "type": "d",
-            "encode": false,
-            "email": loginDoctorUiObj.email,
-            "mobile": loginDoctorUiObj.mobile
+            "encode": false
+            //"email": loginDoctorUiObj.email,
+            //"mobile": loginDoctorUiObj.mobile
         }
-
+        if (loginDoctorUiObj.username != null) {
+            if (loginDoctorUiObj.username.includes('@')) {
+                loginDoctorJavaObj.email = loginDoctorUiObj.username;
+            } else {
+                loginDoctorJavaObj.mobile = loginDoctorUiObj.username;
+            }
+        }
         return loginDoctorJavaObj;
     }
 });

@@ -11,17 +11,17 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getDoctorByMobile = function (mobile) {
-        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + mobile + '/mobile');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/doctor/get/' + mobile + '/mobile');
         return serverResponse;
     }
 
     this.getDoctorByEmail = function (email) {
-        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + email + '/email');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/doctor/get/' + email + '/email');
         return serverResponse;
     }
 
     this.getDoctorByDoctorId = function (dId) {
-        var serverResponse = $http.post('https://doctor.cfapps.io/api/doctor/get/' + dId + '/id');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/doctor/get/' + dId + '/id');
         return serverResponse;
     }
 
@@ -92,18 +92,8 @@ scotchApp.service('ajaxGetResponse', function ($http) {
         return serverResponse;
     }
 
-    this.getDoctorByEmail = function (email) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/doctor/get/' + email + '/email');
-        return serverResponse;
-    }
-
     this.updateDoctorProfile = function (doctor) {
         var serverResponse = $http.put('https://doctors.cfapps.io/api/doctor/', doctor);
-        return serverResponse;
-    }
-
-    this.getDoctorByDoctorId = function (dId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/doctor/get/' + dId + '/id');
         return serverResponse;
     }
 
