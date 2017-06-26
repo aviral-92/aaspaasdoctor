@@ -75,7 +75,8 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
             //$scope.signUpError = true;
             $scope.spinner = false;
             $scope.spinner = false;
-            $mdDialog.show(
+            popUpCalled.popup('Successfully Registered', 'Successfully signup, now you can Log-In it.');
+            /*$mdDialog.show(
                 $mdDialog.alert()
                 .parent(angular.element(document.querySelector('#dialogContainer')))
                 .clickOutsideToClose(true)
@@ -83,7 +84,7 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
                 .textContent('Successfully signup, now you can Log-In it.')
                 .ariaLabel('Successfully signup, now you can Log-In it.')
                 .ok('Ok!')
-            );
+            );*/
             //$scope.register = 'Successfully signup, now you can Log-In it.';
         });
         drSignUp.error(function (data, status, headers, config) {
