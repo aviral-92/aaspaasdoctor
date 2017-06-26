@@ -561,12 +561,12 @@ scotchApp.controller('profile', function ($scope, $cookieStore, fileReader, $rou
     }
 });
 
-scotchApp.controller('signout', function ($scope, $cookieStore, $window) {
+scotchApp.controller('signout', function ($scope, $cookieStore, $window, urlRedirect) {
 
     if ($cookieStore.get('doctorLoginData') != undefined) {
         $cookieStore.remove('doctorLoginData');
     } else {
         $cookieStore.remove('patientLoginData');
     }
-    $window.location.href = '/index.html/QA/#/loginPage';
+    $window.location.href = urlRedirect.signout();
 });

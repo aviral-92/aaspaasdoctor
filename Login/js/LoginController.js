@@ -100,7 +100,7 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
 
 /* Doctor Login */
 scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies, vcRecaptchaService,
-    $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper) {
+    $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper, urlRedirect) {
 
     $scope.spinner = false;
     var vm = this;
@@ -128,7 +128,7 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
                 var doctorJavaToUiObj = responseMapper.getDoctor(doctorObj);
                 $cookieStore.put('doctorLoginData', doctorJavaToUiObj);
                 $scope.spinner = false;
-                $window.location.href = "/QA/DoctorDashboard.html#/home";
+                $window.location.href = urlRedirect.doctorLoginURL();
             });
             doctorSuccess.error(function (data, status, headers, config) {});
             //$scope.loader = false;
