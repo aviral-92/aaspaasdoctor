@@ -114,18 +114,21 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
 
     $scope.doctorLogin = function (loginDetail) {
         var docLoginRestObj = requestMapper.loginDoctor(loginDetail);
-        
+
         var loginSuccessful = ajaxGetResponse.doctorLogin(docLoginRestObj);
         $scope.spinner = true;
         loginSuccessful.success(function (login) {
+
             //if (login.message == 'success') {
+
+
             var doctorSuccess = ajaxGetResponse.getDoctorByDoctorId(login.typeId);
             doctorSuccess.success(function (doctorObj) {
                 doctorObj.src = '/images/no_pic.png';
                 var doctorJavaToUiObj = responseMapper.getDoctor(doctorObj);
                 $cookieStore.put('doctorLoginData', doctorJavaToUiObj);
                 $scope.spinner = false;
-                $window.location.href = "/DoctorDashboard.html#/home";
+                $window.location.href = "/QA/DoctorDashboard.html#/home";
             });
             doctorSuccess.error(function (data, status, headers, config) {});
             //$scope.loader = false;

@@ -4,7 +4,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
     $scope.$route = $route;
 
     if ($cookieStore.get('doctorLoginData') == undefined) {
-        $window.location.href = '/index.html#/loginPage';
+        $window.location.href = '/index.html/QA/#/loginPage';
     } else {
         var getDoctors;
         if ($cookieStore.get('doctorLoginData') != undefined) {
@@ -568,5 +568,5 @@ scotchApp.controller('signout', function ($scope, $cookieStore, $window) {
     } else {
         $cookieStore.remove('patientLoginData');
     }
-    $window.location.href = '/index.html#/loginPage';
+    $window.location.href = '/index.html/QA/#/loginPage';
 });
