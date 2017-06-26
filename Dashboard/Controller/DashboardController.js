@@ -1,4 +1,5 @@
-scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog, $window, $interval, $rootScope, $window, ajaxGetResponse, popUpCalled) {
+scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog, $window, $interval, $rootScope, $window, ajaxGetResponse,
+    popUpCalled, requestMapper) {
 
     //for making ng-class active
     $scope.$route = $route;
@@ -58,7 +59,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
         }
 
         function getNotification(doctors) {
-            var serverResponse = ajaxGetResponse.getDoctorNotification(doctors.did);
+            var serverResponse = ajaxGetResponse.getDoctorNotification(doctors.dId);
             serverResponse.success(function (notification) {
                 $scope.notificationCount = notification.length;
                 console.log(notification);
@@ -72,7 +73,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
         }
 
         function getMessages(doctors) {
-            var serverResponse = ajaxGetResponse.getDoctorMessage(doctors.did);
+            var serverResponse = ajaxGetResponse.getDoctorMessage(doctors.dId);
             serverResponse.success(function (messages) {
                 $scope.messageCount = messages.length;
                 console.log(messages);
@@ -87,7 +88,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
 
         $scope.btnClick = function () {
 
-            var serverResponse = ajaxGetResponse.getAppointmentByDoctorId(getDoctors.did);
+            var serverResponse = ajaxGetResponse.getAppointmentByDoctorId(getDoctors.dId);
             $scope.spinner = true;
             serverResponse.success(function (doctorsList) {
                 $scope.spinner = false;
@@ -106,7 +107,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
         }
     }
     //for todolist
-    var todoServerResponse = ajaxGetResponse.getDoctorTodoList($cookieStore.get('doctorLoginData').did);
+    var todoServerResponse = ajaxGetResponse.getDoctorTodoList($cookieStore.get('doctorLoginData').dId);
     todoServerResponse.success(function (todoData) {
         console.log(todoData);
         $window.localStorage.setItem('doctorToDoList', angular.toJson(todoData));
@@ -116,13 +117,19 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
     });
 });
 
-scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, ajaxGetResponse, popUpCalled) {
+scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, ajaxGetResponse, popUpCalled, requestMapper, responseMapper) {
 
     $scope.click = function () {
         popUpCalled.popup('Under maintainance', 'Coming Soon');
     }
     //for todolist
-    $scope.todoList = JSON.parse($window.localStorage.getItem('doctorToDoList'));
+    var toDoListJavaObj = JSON.parse($window.localStorage.getItem('doctorToDoList'));
+    var toDoListUiObject = [];
+    for (var i = 0; i < toDoListJavaObj.length; i++) {
+        toDoListUiObject[i] = responseMapper.getTodoListResponse(toDoListJavaObj[i]);
+    }
+    $scope.todoList = toDoListUiObject;
+    //$scope.todoList = responseMapper.getTodoListResponse(toDoListJavaObj);
 
     if ($cookieStore.get('doctorLoginData') == undefined) {
         $window.location.href = '/index.html#/loginPage';
@@ -209,13 +216,17 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
     }
     $scope.addTodo = function () {
 
-        var todoListObj = {
+        var todoListObj = {};
+        todoListObj.todoMessage = $scope.todoTastData;
+        todoListObj.dId = $cookieStore.get('doctorLoginData').dId;
+        /*var todoListObj = {
             'todoMessage': $scope.todoTastData,
             'dId': $cookieStore.get('doctorLoginData').did
         }
         var todoList = JSON.stringify(todoListObj);
-        console.log(todoListObj);
-        var serverResponse = ajaxGetResponse.addDoctorTodoList(todoListObj);
+        console.log(todoListObj);*/
+        var todoListRestObj = requestMapper.addToDoList(todoListObj);
+        var serverResponse = ajaxGetResponse.addDoctor_Or_PatientToDoList(todoListRestObj);
         serverResponse.success(function (response) {
             $scope.todoList.push({
                 "todoMessage": $scope.todoTastData
@@ -488,7 +499,7 @@ scotchApp.controller('profile', function ($scope, $cookieStore, fileReader, $rou
                 getDoctors.aadhaarNumber = adhaar;
             }
             $cookieStore.remove('doctorLoginData');
-            $cookieStore.put('doctorLoginData',getDoctors);
+            $cookieStore.put('doctorLoginData', getDoctors);
             console.log(getDoctors);
             calculatePercentage();
             calculateAge();

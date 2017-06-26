@@ -39,4 +39,15 @@ scotchApp.service('responseMapper', function ($http) {
         }
         return doctorUiObj;
     }
+
+    this.getTodoListResponse = function (toDoListJavaObj) {
+        var toDoListUiObj = {
+            "todoMessage": toDoListJavaObj.message,
+            "dId": toDoListJavaObj.doctorId,
+            "pId": toDoListJavaObj.patientId,
+            "id": toDoListJavaObj.id
+        }
+        return toDoListUiObj;
+    }
+
 });

@@ -63,12 +63,12 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.addPatientTodoList = function (todoList) {
-        var serverResponse = $http.post('https://doctors.cfapps.io/api/todo/addToDoListforpatient', todoList);
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/todo/addToDoListforpatient', todoList);
         return serverResponse;
     }
 
     this.updatePatientTodoList = function (todoList) {
-        var serverResponse = $http.put('https://doctors.cfapps.io/api/todo/updatetodoListforPatient', todoList);
+        var serverResponse = $http.put('https://doctor.cfapps.io/api/todo/updatetodoListforPatient', todoList);
         return serverResponse;
     }
 
@@ -78,12 +78,12 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getDoctorNotification = function (dId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/notification/getNotifyfordoctor/' + dId + '/dId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/notification/getNotifyfordoctor/' + dId + '/dId');
         return serverResponse;
     }
 
     this.getDoctorMessage = function (dId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/message/getmessagefordoctor/' + dId + '/dId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/message/get/message/doctor/' + dId + '/id');
         return serverResponse;
     }
 
@@ -113,17 +113,22 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.sendNotoficationToDoctor = function (notification) {
-        var serverResponse = $http.post('https://doctors.cfapps.io/api/notification/addNotifyfordoctor', notification);
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/notification/addNotifyfordoctor', notification);
         return serverResponse;
     }
 
     this.getDoctorTodoList = function (dId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/todo/gettodoListfordoctor/' + dId + '/dId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/todo/get/todolist/doctor/' + dId + '/id');
+        return serverResponse;
+    }
+
+    this.addDoctor_Or_PatientToDoList = function (todoList) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/todo/add/todolist', todoList);
         return serverResponse;
     }
 
     this.addDoctorTodoList = function (todoList) {
-        var serverResponse = $http.post('https://doctors.cfapps.io/api/todo/addToDoListfordoctor', todoList);
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/todo/addToDoListfordoctor', todoList);
         return serverResponse;
     }
 

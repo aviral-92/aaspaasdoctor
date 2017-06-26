@@ -67,4 +67,17 @@ scotchApp.service('requestMapper', function () {
         }
         return loginDoctorJavaObj;
     }
+
+    this.addToDoList = function (todoListUiObj) {
+
+        var toDoListJavaObj = {
+            "message": todoListUiObj.todoMessage
+        }
+        if (todoListUiObj.dId != null) {
+            toDoListJavaObj.doctorId = todoListUiObj.dId;
+        } else {
+            toDoListJavaObj.patientId = todoListUiObj.pid;
+        }
+        return toDoListJavaObj;
+    }
 });
