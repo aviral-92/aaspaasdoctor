@@ -277,3 +277,5 @@ scotchApp.controller('contact', function ($scope, $http, ajaxGetResponse) {
         });
     }
 });
+scotchApp.controller('terms&conditions', function ($scope, $http, ajaxGetResponse) {
+});

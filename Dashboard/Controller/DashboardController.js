@@ -102,7 +102,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
             serverResponse.error(function (data, status, headers, config) {
                 //            alert('Failure'); 
                 $scope.spinner = false;
-                popUpCalled.popup('Service Down for Maintainance', 'We will be back in a while');
+               // popUpCalled.popup('Service Down for Maintainance', 'We will be back in a while');
             });
         }
     }

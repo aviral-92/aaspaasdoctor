@@ -36,5 +36,10 @@ scotchApp.config(function ($routeProvider) {
             templateUrl: '/html/SearchFunctionality/DoctorSearch.html',
             controller: 'functionalitySearch'
         })
+    
+    .when('/terms&conditions', {
+            templateUrl: '/html/Terms&conditions.html',
+            controller: 'terms&conditions'
+        })
 
 });
