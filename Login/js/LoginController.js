@@ -190,7 +190,7 @@ else {
 
 
 /* Patient Registeration */
-scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptchaService, $window, $mdDialog, $interval) {
+scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptchaService, $window, $mdDialog, $interval, ajaxGetResponse, patientRequestMapper) {
 
     $scope.spinner = false;
     $scope.confirm = false;
@@ -249,8 +249,8 @@ scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptch
                 $window.location.reload();
                 console.log("Interval finished");
             }*/
-
-        var patientSignUp = $http.put("https://doctors.cfapps.io/api/patient/signUp", patientRegister);
+        var patientRegistrationRestObj = patientRequestMapper.patientRegistrationMapper(patientRegister);
+        var patientSignUp = ajaxGetResponse.patientRegistration(patientRegistrationRestObj);
         $scope.spinner = true;
         patientSignUp.success(function (patients) {
 
@@ -301,7 +301,7 @@ scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptch
 
 /* Patient Login */
 scotchApp.controller('patientLogin', function ($scope, $rootScope, $http, $cookieStore,
-    $window, $cookies, vcRecaptchaService, $interval, popUpCalled, ajaxGetResponse) {
+    $window, $cookies, vcRecaptchaService, $interval, popUpCalled, ajaxGetResponse, patientRequestMapper) {
 
     $scope.spinner = false;
     var vm = this;
@@ -356,8 +356,9 @@ scotchApp.controller('patientLogin', function ($scope, $rootScope, $http, $cooki
                 console.log("Interval finished");
             }
 
-            loginDetail.type = 'p';
-            var loginSuccessful = ajaxGetResponse.patientLogin(loginDetail);
+            //            loginDetail.type = 'p';
+            var loginPatientRestObj = patientRequestMapper.loginPatient(loginDetail);
+            var loginSuccessful = ajaxGetResponse.patientLogin(loginPatientRestObj);
             $scope.spinner = true;
             loginSuccessful.success(function (login) {
 
