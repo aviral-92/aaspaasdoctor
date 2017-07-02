@@ -7,4 +7,8 @@ scotchApp.service('urlRedirect', function () {
     this.signout = function () {
         return '/QA/index.html#/loginPage';
     }
+
+    this.patientLoginURL = function () {
+        return '/QA/PatientDashboard.html#/patientHome';
+    }
 });
