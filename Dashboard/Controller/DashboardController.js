@@ -102,7 +102,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
             serverResponse.error(function (data, status, headers, config) {
                 //            alert('Failure'); 
                 $scope.spinner = false;
-               // popUpCalled.popup('Service Down for Maintainance', 'We will be back in a while');
+                // popUpCalled.popup('Service Down for Maintainance', 'We will be back in a while');
             });
         }
     }
@@ -125,10 +125,12 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
     //for todolist
     var toDoListJavaObj = JSON.parse($window.localStorage.getItem('doctorToDoList'));
     var toDoListUiObject = [];
-    for (var i = 0; i < toDoListJavaObj.length; i++) {
-        toDoListUiObject[i] = responseMapper.getTodoListResponse(toDoListJavaObj[i]);
+    if (toDoListJavaObj.length > 0) {
+        for (var i = 0; i < toDoListJavaObj.length; i++) {
+            toDoListUiObject[i] = responseMapper.getTodoListResponse(toDoListJavaObj[i]);
+        }
+        $scope.todoList = toDoListUiObject;
     }
-    $scope.todoList = toDoListUiObject;
     //$scope.todoList = responseMapper.getTodoListResponse(toDoListJavaObj);
 
     if ($cookieStore.get('doctorLoginData') == undefined) {

@@ -5,8 +5,23 @@ scotchApp.service('ajaxGetResponse', function ($http) {
         return serverResponse;
     }
 
+    this.patientRegistration = function (patientRegistrationObj) {
+        var serverResponse = $http.put('https://doctor.cfapps.io/api/patient/signUp', patientRegistrationObj);
+        return serverResponse;
+    }
+
     this.doctorLogin = function (doctorLoginObj) {
         var serverResponse = $http.post('https://doctor.cfapps.io/api/login/validate', doctorLoginObj);
+        return serverResponse;
+    }
+
+    this.patientLogin = function (patientLoginObj) {
+        var serverResponse = $http.post('https://doctor.cfapps.io/api/login/validate', patientLoginObj);
+        return serverResponse;
+    }
+
+    this.getPatientById = function (patientId) {
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/patient/get/' + patientId + '/id');
         return serverResponse;
     }
 
@@ -97,11 +112,6 @@ scotchApp.service('ajaxGetResponse', function ($http) {
         return serverResponse;
     }
 
-    this.patientLogin = function (patient) {
-        var serverResponse = $http.post('https://doctors.cfapps.io/api/login/patientlogin', patient);
-        return serverResponse;
-    }
-
     this.getPatientByEmail = function (email) {
         var serverResponse = $http.get('https://doctors.cfapps.io/api/patient/get/' + email + '/email');
         return serverResponse;
@@ -174,11 +184,6 @@ scotchApp.service('ajaxGetResponse', function ($http) {
 
     this.cancelAppointmentById = function (appointmentId) {
         var serverResponse = $http.delete('https://doctors.cfapps.io/api/appointment/appointment/cancel/' + appointmentId);
-        return serverResponse;
-    }
-
-    this.patientRegistration = function (patientRegistrationObj) {
-        var serverResponse = $http.put('https://doctor.cfapps.io/api/patient/signUp' + patientRegistrationObj);
         return serverResponse;
     }
 });

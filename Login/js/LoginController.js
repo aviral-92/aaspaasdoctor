@@ -13,82 +13,21 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
         }
     }
 
-    var vm = this;
-    vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
+    //var vm = this;
+    //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
 
     $scope.doctorRegisteration = function (DocRegisteration) {
 
-        //...............Block for Captcha................
-        //        try {
-        //            if (vcRecaptchaService.getResponse() === "") { //if string is empty
-        //                alert("Please resolve the captcha and submit!")
-        //            } else {
-        //                var post_data = { //prepare payload for request
-        //                    'g-recaptcha-response': vcRecaptchaService.getResponse() //send g-captcah-reponse to our server
-        //                }
-        //                console.log(post_data);
-        //                /* Make Ajax request to our server with g-captcha-string */
-        //                //Need to give our API to validate
-        //                $http.post('http://code.ciphertrick.com/demo/phpapi/api/signup', post_data).success(function (response) {
-        //                        if (response.error === 0) {
-        //                            alert("Successfully verified and signed up the user");
-        //                        } else {
-        //                            alert("User verification failed");
-        //                        }
-        //                    })
-        //                    .error(function (error) {
-        //                        popUpCalled.popup('Under maintainance', 'Coming Soon');
-        //                        //ajaxErrorControl.ajaxServiceDown();
-        //                    })
-        //            }
-        //        } catch (error) {
-        //            popUpCalled.popup('Under maintainance', 'Coming Soon');
-        //            //ajaxErrorControl.ajaxServiceDown();
-        //            /*$scope.spinner = false;
-        //            $mdDialog.show(
-        //                $mdDialog.alert()
-        //                 .parent(angular.element(document.querySelector('#dialogContainer')))
-        //                 .clickOutsideToClose(true)
-        //                 .title('Incorrect Captcha')
-        //                 .textContent('Loading Again')
-        //                 .ariaLabel('Loading Again')
-        //                 .ok('Ok!')
-        //            );*/
-        //            //$interval(callAtInterval,2200);
-        //
-        //        }
-
-        //...........Block for Captcha...............
-
-        /*function callAtInterval() {
-            console.log("Interval occurred");
-            $window.location.reload();
-            console.log("Interval finished");
-        }*/
-
         //Object Conversion
         var docRegistrationRestObj = requestMapper.doctorRegistrationMapper(DocRegisteration);
-
         var drSignUp = ajaxGetResponse.doctorRegistration(docRegistrationRestObj);
         $scope.spinner = true;
         drSignUp.success(function (doctors) {
-            //$scope.signUpError = true;
             $scope.spinner = false;
             $scope.spinner = false;
             popUpCalled.popup('Successfully Registered', 'Successfully signup, now you can Log-In it.');
-            /*$mdDialog.show(
-                $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#dialogContainer')))
-                .clickOutsideToClose(true)
-                .title('Successfully Registered')
-                .textContent('Successfully signup, now you can Log-In it.')
-                .ariaLabel('Successfully signup, now you can Log-In it.')
-                .ok('Ok!')
-            );*/
-            //$scope.register = 'Successfully signup, now you can Log-In it.';
         });
         drSignUp.error(function (data, status, headers, config) {
-            /*alert("failure message: " + data.message);*/
             $scope.message = 'No Data Found!!!';
             $scope.signUpError = true;
             $scope.spinner = false;
@@ -115,14 +54,10 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
 
     $scope.doctorLogin = function (loginDetail) {
         var docLoginRestObj = requestMapper.loginDoctor(loginDetail);
-
         var loginSuccessful = ajaxGetResponse.doctorLogin(docLoginRestObj);
         $scope.spinner = true;
         loginSuccessful.success(function (login) {
-
             //if (login.message == 'success') {
-
-
             var doctorSuccess = ajaxGetResponse.getDoctorByDoctorId(login.typeId);
             doctorSuccess.success(function (doctorObj) {
                 doctorObj.src = '/images/no_pic.png';
@@ -190,7 +125,8 @@ else {
 
 
 /* Patient Registeration */
-scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptchaService, $window, $mdDialog, $interval, ajaxGetResponse, patientRequestMapper) {
+scotchApp.controller('patientRegistrations', function ($scope, $http, $window, popUpCalled, $interval,
+    ajaxGetResponse, patientRequestMapper) {
 
     $scope.spinner = false;
     $scope.confirm = false;
@@ -203,192 +139,54 @@ scotchApp.controller('patientRegistrations', function ($scope, $http, vcRecaptch
             $scope.confirm = true;
         }
     }
-    var vm = this;
-    vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
-
+    // var vm = this;
+    //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
     $scope.patientRegisters = function (patientRegister) {
 
-        try {
-            if (vcRecaptchaService.getResponse() === "") { //if string is empty
-                alert("Please resolve the captcha and submit!")
-            } else {
-                var post_data = { //prepare payload for request
-                    'g-recaptcha-response': vcRecaptchaService.getResponse() //send g-captcah-reponse to our server
-                }
-                console.log(post_data);
-                /* Make Ajax request to our server with g-captcha-string ***/
-                //Need to give our API to validate
-                $http.post('http://code.ciphertrick.com/demo/phpapi/api/signup', post_data).success(function (response) {
-                        if (response.error === 0) {
-                            alert("Successfully verified and signed up the user");
-                        } else {
-                            alert("User verification failed");
-                        }
-                    })
-                    .error(function (error) {
-                        //					alert("Captcha invalid")
-                    })
-            }
-        } catch (error) {
-            $scope.spinner = false;
-            $mdDialog.show(
-                $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#dialogContainer')))
-                .clickOutsideToClose(true)
-                .title('Moment please')
-                .textContent('Loading')
-                .ariaLabel('Loading')
-                .ok('Ok!')
-            );
-            //                 $interval(callAtInterval,1200);
-
-        }
-
-        /*function callAtInterval() {
-                console.log("Interval occurred");
-                $window.location.reload();
-                console.log("Interval finished");
-            }*/
         var patientRegistrationRestObj = patientRequestMapper.patientRegistrationMapper(patientRegister);
         var patientSignUp = ajaxGetResponse.patientRegistration(patientRegistrationRestObj);
         $scope.spinner = true;
         patientSignUp.success(function (patients) {
-
-            //            $scope.signUpErrors = true;
             $scope.spinner = false;
-            $mdDialog.show(
-                $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#dialogContainer')))
-                .clickOutsideToClose(true)
-                .title('Successfully Registered')
-                .textContent('Successfully signup, now you can Log-In it.')
-                .ariaLabel('Successfully signup, now you can Log-In it.')
-                .ok('Ok!')
-            );
-            //            $scope.register = 'Successfully signup, now you can Log-In it.';
+            popUpCalled.popup('Successfully Registered', 'Successfully signup, now you can Log-In it.');
         });
         patientSignUp.error(function (data, status, headers, config) {
-
             $scope.spinner = false;
-            $mdDialog.show(
-                $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#dialogContainer')))
-                .clickOutsideToClose(true)
-                .title('Try Again')
-                .textContent('Try again later.')
-                .ariaLabel('Try again later.')
-                .ok('Ok!')
-            );
+            popUpCalled.popup('Try again', 'Try again later.');
         });
     }
-
-    function callAlert() {
-
-        $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#dialogContainer')))
-            .clickOutsideToClose(true)
-            .title('Successfully Registered')
-            .textContent('Successfully signup, now you can Log-In it.')
-            .ariaLabel('Successfully signup, now you can Log-In it.')
-            .ok('Ok!')
-        );
-    }
-
 });
 /* Patient Registeration */
 
 
 /* Patient Login */
-scotchApp.controller('patientLogin', function ($scope, $rootScope, $http, $cookieStore,
-    $window, $cookies, vcRecaptchaService, $interval, popUpCalled, ajaxGetResponse, patientRequestMapper) {
+scotchApp.controller('patientLogin', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies,
+    $interval, popUpCalled, ajaxGetResponse, patientRequestMapper, urlRedirect) {
 
     $scope.spinner = false;
-    var vm = this;
-    vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
+    //var vm = this;
+    //vm.publicKey = "6Lf2kBgUAAAAACwYaEUzyTW3b_T3QEp2xcLcrG3B";
 
     if ($cookieStore.get('patientLoginData') == undefined) {
-
-
         $scope.patientLogin = function (loginDetail) {
-            /* console.log(loginDetail);
-             $cookieStore.put('email', loginDetail.email);*/
-            try {
-                if (vcRecaptchaService.getResponse() === "") { //if string is empty
-                    alert("Please resolve the captcha and submit!")
-                } else {
-                    var post_data = { //prepare payload for request
-                        'g-recaptcha-response': vcRecaptchaService.getResponse() //send g-captcah-reponse to our server
-                    }
-                    console.log(post_data);
-                    /* Make Ajax request to our server with g-captcha-string */
-                    //Need to give our API to validate
-                    $http.post('http://code.ciphertrick.com/demo/phpapi/api/signup', post_data).success(function (response) {
-                            if (response.error === 0) {
-                                alert("Successfully verified and signed up the user");
-                            } else {
-                                //alert("User verification failed");
-                            }
-                        })
-                        .error(function (error) {
-                            // alert("Captcha invalid")
-                        })
-                }
-            } catch (error) {
-                $scope.spinner = false;
-                popUpCalled.popup('Incorrect Captcha', 'Loading Again');
-                /*$mdDialog.show(
-                    $mdDialog.alert()
-                     .parent(angular.element(document.querySelector('#dialogContainer')))
-                     .clickOutsideToClose(true)
-                     .title('Incorrect Captcha')
-                     .textContent('Loading Again')
-                     .ariaLabel('Loading Again')
-                     .ok('Ok!')
-                );*/
-                $interval(callAtInterval, 2200);
-
-            }
-
-            function callAtInterval() {
-                console.log("Interval occurred");
-                $window.location.reload();
-                console.log("Interval finished");
-            }
-
-            //            loginDetail.type = 'p';
             var loginPatientRestObj = patientRequestMapper.loginPatient(loginDetail);
             var loginSuccessful = ajaxGetResponse.patientLogin(loginPatientRestObj);
             $scope.spinner = true;
             loginSuccessful.success(function (login) {
 
-                if (login.message == "success") {
-                    if (loginDetail.username.includes("@")) {
-                        var serverResponse = ajaxGetResponse.getPatientByEmail(loginDetail.username);
-                        serverResponse.success(function (patientObj) {
-                            patientObj.src = '/images/no_pic.png';
-                            $cookieStore.put('patientLoginData', patientObj);
-                            $scope.spinner = false;
-                            $window.location.href = "/PatientDashboard.html#/patientHome";
-                        });
-                        serverResponse.error(function (data, status, headers, config) {
-                            alert("failure message: " + data);
-                        });
-                    } else {
-                        var patientSuccess = $http.get("https://doctors.cfapps.io/api/patient/get/" + loginDetail.username + "/mobile");
-                        patientSuccess.success(function (patientObj) {
-                            $cookieStore.put('patientLoginData', patientObj);
-                            $scope.spinner = false;
-                            $window.location.href = "/PatientDashboard.html#/patientHome";
-                        });
-                        patientSuccess.error(function (data, status, headers, config) {
-                            alert("failure message: " + data);
-                        });
-                    }
-                }
+                var serverResponse = ajaxGetResponse.getPatientById(login.typeId);
+                serverResponse.success(function (patientObj) {
+                    patientObj.src = '/images/no_pic.png';
+                    $cookieStore.put('patientLoginData', patientObj);
+                    $scope.spinner = false;
+                    $window.location.href = urlRedirect.patientLoginURL();
+                });
+                serverResponse.error(function (data, status, headers, config) {
+                    alert("failure message: " + data);
+                });
             });
             loginSuccessful.error(function (data, status, headers, config) {
-                alert("failure message: " + data.message);
+                alert("failure message: " + data);
                 $scope.message = 'Invalid Credentials...!!!';
             });
         }
