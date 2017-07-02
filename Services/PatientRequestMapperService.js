@@ -16,16 +16,16 @@ scotchApp.service('patientRequestMapper', function () {
 
         var loginPatientJavaObj = {
             "password": loginPatientUiObj.password,
-            "type": "d",
+            "type": "p",
             "encode": false
-            if (loginPatientUiObj.username != null) {
-                if (loginPatientUiObj.username.includes('@')) {
-                    loginPatientJavaObj.email = loginPatientUiObj.username;
-                } else {
-                    loginPatientJavaObj.mobile = loginPatientUiObj.username;
-                }
-            }
-            return loginPatientJavaObj;
         }
+        if (loginPatientUiObj.username != null) {
+            if (loginPatientUiObj.username.includes('@')) {
+                loginPatientJavaObj.email = loginPatientUiObj.username;
+            } else {
+                loginPatientJavaObj.mobile = loginPatientUiObj.username;
+            }
+        }
+        return loginPatientJavaObj;
     }
-})
+});

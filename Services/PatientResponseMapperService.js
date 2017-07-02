@@ -33,4 +33,4 @@ scotchApp.service('patientResponseMapper', function () {
         }
         return patientUiObj;
     }
-})
+});
