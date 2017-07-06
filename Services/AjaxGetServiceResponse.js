@@ -93,7 +93,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getDoctorNotification = function (dId) {
-        var serverResponse = $http.get('https://doctor.cfapps.io/api/notify/get/notification/doctor/' + dId + '/id');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/notify/get/notification/doctor/' + dId + '/id/0/status');
         return serverResponse;
     }
 
