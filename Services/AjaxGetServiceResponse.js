@@ -57,7 +57,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
 
     //Common for both doctor and patient
     this.updateNotification = function (notify) {
-        var serverResponse = $http.put('https://doctors.cfapps.io/api/notification/updateNotify', notify);
+        var serverResponse = $http.put('https://doctor.cfapps.io/api/notify/update/notification/status', notify);
         return serverResponse;
     }
 

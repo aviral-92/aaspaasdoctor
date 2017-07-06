@@ -55,8 +55,6 @@ scotchApp.service('requestMapper', function () {
             "password": loginDoctorUiObj.password,
             "type": "d",
             "encode": false
-            //"email": loginDoctorUiObj.email,
-            //"mobile": loginDoctorUiObj.mobile
         }
         if (loginDoctorUiObj.username != null) {
             if (loginDoctorUiObj.username.includes('@')) {
@@ -66,18 +64,5 @@ scotchApp.service('requestMapper', function () {
             }
         }
         return loginDoctorJavaObj;
-    }
-
-    this.addToDoList = function (todoListUiObj) {
-
-        var toDoListJavaObj = {
-            "message": todoListUiObj.todoMessage
-        }
-        if (todoListUiObj.dId != null) {
-            toDoListJavaObj.doctorId = todoListUiObj.dId;
-        } else {
-            toDoListJavaObj.patientId = todoListUiObj.pid;
-        }
-        return toDoListJavaObj;
     }
 });

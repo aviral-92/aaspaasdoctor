@@ -118,7 +118,7 @@
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu" ng-repeat="notify in notifications">
                                         <li>
-                                            <a ng-click="getNotofication(notify)"> <i class="fa fa-users text-aqua"></i> {{notify.notiyfMessage}}
+                                            <a ng-click="updateNotoficationOnClick(notify)"> <i class="fa fa-users text-aqua"></i> {{notify.notification}}
                                             </a>
                                         </li>
                                     </ul>
@@ -205,10 +205,10 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active treeview"></li>
-                        <!--<ul class="treeview-menu"> -->
-                        <li ng-class="{active: $route.current.activetab == 'docDashboard'}"> <a href="#/home"><i class="fa fa-circle-o"></i> <span>Dashboard</span></a>
-                        </li>
-                    
+                    <!--<ul class="treeview-menu"> -->
+                    <li ng-class="{active: $route.current.activetab == 'docDashboard'}"> <a href="#/home"><i class="fa fa-circle-o"></i> <span>Dashboard</span></a>
+                    </li>
+
 
                     <li ng-class="{active: $route.current.activetab == 'docCalendar'}">
                         <a href="#/docCal"> <i class="fa fa-calendar"></i> <span> Calendar</span>
@@ -286,6 +286,7 @@
         <script type="text/javascript" src="Services/ResponseMapperService.js"></script>
         <script type="text/javascript" src="Services/RedirectUrl.js"></script>
         <script type="text/javascript" src="Services/Mappers/TODOListRequestMapper.js"></script>
+        <script type="text/javascript" src="Services/Mappers/NotificationRequestMapper.js"></script>
     </div>
 </body>
 
