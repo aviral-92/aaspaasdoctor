@@ -1,5 +1,5 @@
 scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog, $window, $interval, $rootScope, $window, ajaxGetResponse,
-    popUpCalled, requestMapper, urlRedirect) {
+    popUpCalled, requestMapper, urlRedirect, NotificationRequestMapper) {
 
     //for making ng-class active
     $scope.$route = $route;
@@ -27,19 +27,13 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
         }, 120000);
         getMessages(getDoctors);
 
-        $scope.getNotofication = function (notify) {
-
-            popUpCalled.popup(notify.notiyfMessage, notify.notiyfMessage);
-            var obj = {
-                "notifyId": notify.notifyId
-            };
-            // Create new object
-            var notifys = JSON.stringify(obj)
-            /* console.log(notifys);*/
-            var serverResponseUpdate = ajaxGetResponse.updateNotification(notifys);
+        // To Update notification and make it status 0 in db so that it can not seen further.
+        $scope.updateNotoficationOnClick = function (notify) {
+            var serverResponseUpdate = ajaxGetResponse.updateNotification(NotificationRequestMapper.updateNotificationStatus(notify));
             serverResponseUpdate.success(function (data) {
                 console.log('success');
                 getNotification(getDoctors);
+                popUpCalled.popup(notify.notification, notify.notification);
             });
             console.log('failure');
             getNotification(getDoctors);
@@ -119,7 +113,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
 });
 
 scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, ajaxGetResponse, popUpCalled, requestMapper, responseMapper,
-    TODOListrequestMapper) {
+    TODOListRequestMapper) {
 
     $scope.click = function () {
         popUpCalled.popup('Under maintainance', 'Coming Soon');
@@ -203,7 +197,7 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
     //----------UPDATE TODO LIST STARTS HERE---------------
     $scope.updateTodo = function (todoData) {
 
-        var updateJson = TODOListrequestMapper.updateTodoListRequest(todoData);
+        var updateJson = TODOListRequestMapper.updateTodoListRequest(todoData);
         console.log(updateJson);
 
         var serverResponseupdate = ajaxGetResponse.updateDoctorTodoList(updateJson);
@@ -224,7 +218,7 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
         var todoListObj = {};
         todoListObj.todoMessage = $scope.todoTastData;
         todoListObj.dId = $cookieStore.get('doctorLoginData').dId;
-        var todoListRestObj = requestMapper.addToDoList(todoListObj);
+        var todoListRestObj = TODOListRequestMapper.addToDoList(todoListObj);
         var serverResponse = ajaxGetResponse.addDoctor_Or_PatientToDoList(todoListRestObj);
         serverResponse.success(function (response) {
             $scope.todoList.push({
@@ -237,7 +231,7 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
         });
     }
     //----------ADD TODO LIST ENDS HERE---------------
-    
+
     $scope.close = function () {
         var data = $scope.todoTastData;
         $scope.todoList.push({

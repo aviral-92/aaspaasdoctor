@@ -1,4 +1,4 @@
-scotchApp.service('TODOListrequestMapper', function () {
+scotchApp.service('TODOListRequestMapper', function () {
 
     this.updateTodoListRequest = function (TODOUiObj) {
 
@@ -7,5 +7,18 @@ scotchApp.service('TODOListrequestMapper', function () {
             "message": TODOUiObj.todoMessage
         }
         return TODOJavaObj;
+    }
+
+    this.addToDoList = function (todoListUiObj) {
+
+        var toDoListJavaObj = {
+            "message": todoListUiObj.todoMessage
+        }
+        if (todoListUiObj.dId != null) {
+            toDoListJavaObj.doctorId = todoListUiObj.dId;
+        } else {
+            toDoListJavaObj.patientId = todoListUiObj.pid;
+        }
+        return toDoListJavaObj;
     }
 });
