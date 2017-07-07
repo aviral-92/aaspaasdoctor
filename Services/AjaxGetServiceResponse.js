@@ -68,7 +68,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
 
     //Common for both doctor and patient
     this.updateMessage = function (message) {
-        var serverResponse = $http.put('https://doctors.cfapps.io/api/message/updatemessage', message);
+        var serverResponse = $http.put('https://doctor.cfapps.io/api/message/update/message', message);
         return serverResponse;
     }
 
@@ -93,7 +93,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getDoctorNotification = function (dId) {
-        var serverResponse = $http.get('https://doctor.cfapps.io/api/notify/get/notification/doctor/' + dId + '/id');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/notify/get/Notification/doctor/' + dId + '/id/1/status');
         return serverResponse;
     }
 
@@ -102,8 +102,9 @@ scotchApp.service('ajaxGetResponse', function ($http) {
         return serverResponse;
     }
 
+    //Get Appointment Details
     this.getAppointmentByDoctorId = function (dId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/appointment/appointment/' + dId + '/doctorBydId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/appointment/appointment/' + dId + '/doctor');
         return serverResponse;
     }
 

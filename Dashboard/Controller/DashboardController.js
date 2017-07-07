@@ -41,11 +41,12 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
 
         $scope.getMessage = function (messages) {
 
-            popUpCalled.popup(messages.message, messages.message);
+            messages.status = 0;
             var serverResponseUpdate = ajaxGetResponse.updateMessage(messages);
             serverResponseUpdate.success(function (data) {
                 console.log('success');
                 getMessages(getDoctors);
+                popUpCalled.popup(messages.message, messages.message);
             });
             serverResponseUpdate.error(function (data, status, headers, config) {
                 console.log('failure');
