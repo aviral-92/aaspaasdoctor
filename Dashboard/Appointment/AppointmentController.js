@@ -1,6 +1,6 @@
 scotchApp.controller('doctorAppointment', function ($scope, $cookieStore, $window, $location, popUpCalled, ajaxGetResponse) {
 
-    refreshAppointmentDetails($cookieStore.get('doctorLoginData').did);
+    refreshAppointmentDetails($cookieStore.get('doctorLoginData').dId);
 
     $scope.viewPatient = function (doctorAppointment) {
         console.log(doctorAppointment);
@@ -42,11 +42,12 @@ scotchApp.controller('doctorCancelAppointment', function ($scope, $http, $rootSc
 
     var getPatient = JSON.parse($window.localStorage.getItem('patientObj'));
     console.log(getPatient);
+    
+    if (getPatient.patient.dateOfBrith != null) {
+        var age = new Date().getYear() - new Date(getPatient.patient.dateOfBrith).getYear();
+        getPatient.patient.dateOfBrith = age;
+    }
     $scope.doctor = getPatient;
-
-    var age = new Date().getYear() - new Date($scope.doctor.patient.dob).getYear();
-    $scope.doctor.patient.age = age;
-
     $scope.cancelAppointment = function (doctor) {
         var responseUpdate = ajaxGetResponse.cancelAppointmentById(doctor.appointmentId);
         responseUpdate.success(function (data) {
@@ -204,7 +205,7 @@ scotchApp.controller('patientAppointmentBook', function ($scope, $http, $rootSco
             notifyDoctor(sendNotification);
             addCalendarEvents(calendarEvent);
             popUpCalled.popup('Appointment Booked', 'Your Appointment has been booked');
-             $window.location.href = "#/viewPatientAppointment";
+            $window.location.href = "#/viewPatientAppointment";
         });
         response.error(function (data, status, headers, config) {
             console.log('Booking appointment failed');

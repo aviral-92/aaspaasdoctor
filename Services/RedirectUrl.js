@@ -1,14 +1,14 @@
 scotchApp.service('urlRedirect', function () {
 
     this.doctorLoginURL = function () {
-        return '/QA/DoctorDashboard.html#/home';
+        return '/DoctorDashboard.html#/home';
     }
 
     this.signout = function () {
-        return '/QA/index.html#/loginPage';
+        return '/index.html#/loginPage';
     }
 
     this.patientLoginURL = function () {
-        return '/QA/PatientDashboard.html#/patientHome';
+        return '/PatientDashboard.html#/patientHome';
     }
 });
