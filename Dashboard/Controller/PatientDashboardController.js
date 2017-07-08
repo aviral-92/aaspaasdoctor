@@ -199,7 +199,7 @@ scotchApp.controller('patientHome', function ($scope, $route, $window, $cookieSt
 
         var todoListObj = {};
         todoListObj.todoMessage = $scope.todoTastData;
-        todoListObj.patientId = $cookieStore.get('patientLoginData').pId;
+        todoListObj.pId = $cookieStore.get('patientLoginData').pId;
         var todoListRestObj = TODOListRequestMapper.addToDoList(todoListObj);
         var serverResponse = ajaxGetResponse.addDoctor_Or_PatientToDoList(todoListRestObj);
         serverResponse.success(function (response) {

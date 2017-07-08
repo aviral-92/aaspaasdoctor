@@ -51,7 +51,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getPatientNotification = function (pId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/notification/getNotifyforpatient/' + pId + '/pId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/notify/get/Notification/patient/' + pId + '/id/1/status');
         return serverResponse;
     }
 
@@ -62,7 +62,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getPatientMessage = function (pId) {
-        var serverResponse = $http.get('https://doctors.cfapps.io/api/message/getmessageforpatient/' + pId + '/pId');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/message/get/message/patient/' + pId + '/id/1/status');
         return serverResponse;
     }
 
