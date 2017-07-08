@@ -17,7 +17,7 @@ scotchApp.service('TODOListRequestMapper', function () {
         if (todoListUiObj.dId != null) {
             toDoListJavaObj.doctorId = todoListUiObj.dId;
         } else {
-            toDoListJavaObj.patientId = todoListUiObj.pid;
+            toDoListJavaObj.patientId = todoListUiObj.pId;
         }
         return toDoListJavaObj;
     }
