@@ -38,15 +38,15 @@ scotchApp.controller('doctorAppointment', function ($scope, $cookieStore, $windo
     }
 });
 
-scotchApp.controller('doctorCancelAppointment', function ($scope, $http, $rootScope, $window, ajaxGetResponse, popUpCalled, $route) {
+scotchApp.controller('doctorCancelAppointment', function ($scope, $http, $rootScope, $window, ajaxGetResponse, popUpCalled, $route, $filter) {
 
     var getPatient = JSON.parse($window.localStorage.getItem('patientObj'));
     console.log(getPatient);
-    
+
     if (getPatient.patient.dateOfBrith != null) {
-        var age = new Date().getYear() - new Date(getPatient.patient.dateOfBrith).getYear();
-        getPatient.patient.dateOfBrith = age;
+        getPatient.patient.age = new Date().getYear() - new Date(getPatient.patient.dateOfBrith).getYear();
     }
+    getPatient.appointmentDate = $filter('date')(new Date(getPatient.appointmentDate), "dd/MM/yyyy");
     $scope.doctor = getPatient;
     $scope.cancelAppointment = function (doctor) {
         var responseUpdate = ajaxGetResponse.cancelAppointmentById(doctor.appointmentId);

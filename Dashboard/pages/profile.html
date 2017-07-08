@@ -109,21 +109,47 @@
                                     <div class="col-sm-9"><input type="email" class="form-control" id="inputEmail3" ng-model="doctors.email" placeholder=""></div>
                                     <!--  value="contact@akveo.com"-->
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group row clearfix">
                                     <label for="inputPhone" class="col-sm-3 control-label">Mobile</label>
                                     <div class="col-sm-9"><input type="text" class="form-control" id="inputPhone" ng-model="doctors.mobile" placeholder=""></div>
                                     <!-- - value="+1 (23) 456 7890" -->
                                 </div>
                             </div>
+                        </div>
+
+                        <h3 class="page-header">Clinic Details</h3>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row clearfix">
                                     <label for="inputRoom" class="col-sm-3 control-label">Clinic Name</label>
                                     <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.clinicName" placeholder="" value="303"></div>
                                 </div>
-
                                 <div class="form-group row clearfix">
-                                    <label for="inputRoom" class="col-sm-3 control-label">Clinic Address</label>
+                                    <label for="inputRoom" class="col-sm-3 control-label">City</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.city" placeholder="" value="303"></div>
+                                </div>
+                                <div class="form-group row clearfix">
+                                    <label for="inputRoom" class="col-sm-3 control-label">Pin</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.pin" placeholder=""></div>
+                                    <!-- ---- value="303" -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row clearfix">
+                                    <label for="inputRoom" class="col-sm-3 control-label">Address</label>
                                     <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.clinicAddress" placeholder=""></div>
+                                    <!-- ---- value="303" -->
+                                </div>
+                                <div class="form-group row clearfix">
+                                    <label for="inputRoom" class="col-sm-3 control-label">State</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.state" placeholder=""></div>
+                                    <!-- ---- value="303" -->
+                                </div>
+                                <div class="form-group row clearfix">
+                                    <label for="inputRoom" class="col-sm-3 control-label">Landmark</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.landmark" placeholder=""></div>
                                     <!-- ---- value="303" -->
                                 </div>
                             </div>
@@ -134,12 +160,12 @@
                             <div class="col-md-6">
                                 <div class="form-group row clearfix">
                                     <label for="inputEmail3" class="col-sm-3 control-label">Adhaar Number</label>
-                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputEmail3" ng-model="doctors.aadhaarNumber" placeholder=""></div>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputEmail3" ng-model="doctors.adhaar" placeholder=""></div>
                                     <!-- ----- value="123456789875" -->
                                 </div>
                                 <div class="form-group row clearfix">
-                                    <label for="inputPhone" class="col-sm-3 control-label">Home Address</label>
-                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputPhone" ng-model="doctors.homeAddress" placeholder=""></div>
+                                    <label for="inputPhone" class="col-sm-3 control-label">Timmings</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputPhone" ng-model="doctors.timing" placeholder=""></div>
                                     <!-- --- value="Delhi" -->
                                 </div>
                                 <div class="form-group row clearfix">
@@ -150,7 +176,11 @@
                                         </md-content>
                                     </div>
                                 </div>
-
+                                <div class="form-group row clearfix">
+                                    <label for="inputRoom" class="col-sm-3 control-label">Joined Date</label>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.createdDate" placeholder="Joined Date" ng-disabled="true"></div>
+                                    <!--  value="MBBS" -->
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row clearfix">
@@ -166,7 +196,7 @@
                                 <!-- -----AGE-------- -->
                                 <div class="form-group row clearfix">
                                     <label for="inputRoom" class="col-sm-3 control-label">Description</label>
-                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.desc" placeholder=""></div>
+                                    <div class="col-sm-9"><input type="text" class="form-control" id="inputRoom" ng-model="doctors.description" placeholder=""></div>
                                 </div>
 
                             </div>

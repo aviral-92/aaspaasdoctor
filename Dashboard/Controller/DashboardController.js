@@ -113,7 +113,7 @@ scotchApp.controller('index', function ($scope, $route, $cookieStore, $mdDialog,
     });
 });
 
-scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, ajaxGetResponse, popUpCalled, requestMapper, responseMapper,
+scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, ajaxGetResponse, popUpCalled, requestMapper, doctorResponseMapper,
     TODOListRequestMapper) {
 
     $scope.click = function () {
@@ -124,11 +124,11 @@ scotchApp.controller('home', function ($scope, $route, $cookieStore, $window, aj
     var toDoListUiObject = [];
     if (toDoListJavaObj.length > 0) {
         for (var i = 0; i < toDoListJavaObj.length; i++) {
-            toDoListUiObject[i] = responseMapper.getTodoListResponse(toDoListJavaObj[i]);
+            toDoListUiObject[i] = doctorResponseMapper.getTodoListResponse(toDoListJavaObj[i]);
         }
         $scope.todoList = toDoListUiObject;
     }
-    //$scope.todoList = responseMapper.getTodoListResponse(toDoListJavaObj);
+    //$scope.todoList = doctorResponseMapper.getTodoListResponse(toDoListJavaObj);
 
     if ($cookieStore.get('doctorLoginData') == undefined) {
         $window.location.href = '/index.html#/loginPage';
@@ -438,12 +438,13 @@ scotchApp.controller('KitchenSinkCtrl', function ($scope, moment, alert, calenda
 });
 
 /* ----Profile--- */
-scotchApp.controller('profile', function ($scope, $cookieStore, fileReader, $route, $window, $interval, popUpCalled, ajaxGetResponse) {
+scotchApp.controller('profile', function ($scope, $cookieStore, fileReader, $route, $window, $interval, popUpCalled, ajaxGetResponse, $filter) {
 
     //for making class active
     $scope.$route = $route;
     $scope.url = "#/profile";
     var getDoctors = $cookieStore.get('doctorLoginData');
+    getDoctors.createdDate = $filter('date')(new Date(getDoctors.createdDate), 'dd-MM-yyyy');
     $scope.doctors = getDoctors;
     $scope.doctors.dob = new Date($scope.doctors.dob);
     calculateAge();

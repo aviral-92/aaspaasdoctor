@@ -98,7 +98,7 @@ scotchApp.service('ajaxGetResponse', function ($http) {
     }
 
     this.getDoctorMessage = function (dId) {
-        var serverResponse = $http.get('https://doctor.cfapps.io/api/message/get/message/doctor/' + dId + '/id');
+        var serverResponse = $http.get('https://doctor.cfapps.io/api/message/get/message/doctor/' + dId + '/id/1/status');
         return serverResponse;
     }
 
