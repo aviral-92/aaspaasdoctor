@@ -1,4 +1,4 @@
-scotchApp.controller('index', function ($scope, $route, $http, $cookieStore, $mdDialog, $window, $interval, popUpCalled, ajaxGetResponse, patientRequestMapper) {
+scotchApp.controller('index', function ($scope, $route, $http, $cookieStore, $mdDialog, $window, $interval, popUpCalled, ajaxGetResponse, patientRequestMapper, NotificationRequestMapper) {
 
     $scope.$route = $route;
     //For getting current Geo-Coordinates.
@@ -25,7 +25,7 @@ scotchApp.controller('index', function ($scope, $route, $http, $cookieStore, $md
     //Calling Ends for every 30 seconds to check whether there is any notification or not.
     getMessages(getPatients);
 
-    $scope.getNotofication = function (notify) {
+/*    $scope.getNotofication = function (notify) {
 
         // Popup Called for alert...
         popUpCalled.popup(notify.notiyfMessage, notify.notiyfMessage);
@@ -43,7 +43,19 @@ scotchApp.controller('index', function ($scope, $route, $http, $cookieStore, $md
             console.log('failure');
             getNotification(getPatients);
         });
-    }
+    }*/
+    
+     // To Update notification and make it status 0 in db so that it can not seen further.
+        $scope.updateNotoficationOnClick = function (notify) {
+            var serverResponseUpdate = ajaxGetResponse.updateNotification(NotificationRequestMapper.updateNotificationStatus(notify));
+            serverResponseUpdate.success(function (data) {
+                console.log('success');
+                getNotification(getPatients);
+                popUpCalled.popup(notify.notification, notify.notification);
+            });
+            console.log('failure');
+            getNotification(getPatients);
+        }
 
     $scope.getMessage = function (messages) {
 
