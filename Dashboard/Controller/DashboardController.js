@@ -460,6 +460,7 @@ scotchApp.controller('profile', function ($scope, $cookieStore, fileReader, $rou
                 console.log($scope.file);
             });
     };
+    
     $scope.doctorUpdate = function (doctorUpdateValue) {
 
         doctorUpdateValue.dId = doctorUpdateValue.did;

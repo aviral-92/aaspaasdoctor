@@ -40,7 +40,7 @@ scotchApp.controller('doctorRegistration', function ($scope, $http, vcRecaptchaS
 
 /* Doctor Login */
 scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieStore, $window, $cookies, vcRecaptchaService,
-    $mdDialog, $interval, ajaxGetResponse, requestMapper, responseMapper, urlRedirect) {
+    $mdDialog, $interval, ajaxGetResponse, requestMapper, doctorResponseMapper, urlRedirect) {
 
     $scope.spinner = false;
     var vm = this;
@@ -61,7 +61,7 @@ scotchApp.controller('loginPage', function ($scope, $rootScope, $http, $cookieSt
             var doctorSuccess = ajaxGetResponse.getDoctorByDoctorId(login.typeId);
             doctorSuccess.success(function (doctorObj) {
                 doctorObj.src = '/images/no_pic.png';
-                var doctorJavaToUiObj = responseMapper.getDoctor(doctorObj);
+                var doctorJavaToUiObj = doctorResponseMapper.getDoctor(doctorObj);
                 $cookieStore.put('doctorLoginData', doctorJavaToUiObj);
                 $scope.spinner = false;
                 $window.location.href = urlRedirect.doctorLoginURL();
