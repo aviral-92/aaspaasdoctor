@@ -1,0 +1,106 @@
+<div class="container">
+    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="row">
+            <div class="col-sm-12 nav-tab-holder" style="margin-right: 4.5%;">
+                <ul class="nav nav-tabs row" role="tablist">
+                    <li role="presentation" class="active col-sm-12" data-ng-init="testInput='1'; init();"><a aria-controls="home" role="tab"><b>Book Your Appointment Here</b></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- ----------------------------------------------- -->
+        <div class="panel panel-info" style="margin-left : -3%;">
+            <div class="panel-heading">
+                <div class="panel-title">New Patient</div>
+            </div>
+
+            <!----------If Loader needed then uncomment this block----------------->
+            <!--<div class="center-block" ng-show="spinner">
+                <img class="col-md-3 col-md-offset-3" src="../images/gears.gif" style=" position: absolute;  z-index:5;">
+            </div>-->
+            <!-- ---------------------------------------------------------------- -->
+
+            <div style="padding-top: 30px" class="panel-body">
+
+                <div style="display: none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                <form id="appointmentform" class="form-horizontal" role="form" name="appointmentform">
+
+                    <div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.adhaar.$dirty && appointmentform.adhaar.$valid ,
+                        'has-error' : appointmentform.adhaar.$dirty && appointmentform.adhaar.$invalid}">
+                        <span class="input-group-addon"><i
+							class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" class="form-control" id="inputError2" name="adhaar" ng-model="appointment.adhaar" placeholder="Enter Adhaar" valid-Adhaar>
+                        <div class="help-inline">
+                            <span ng-show="!!appointmentform.adhaar.$error.isBlank"><i
+								style="color: red;">Doctor Adhaar Required.</i></span> <span ng-show="!!appointmentform.adhaar.error.invalidChars"><i
+								style="color: red;">Doctor Adhaar must contain @ & dot(.) .</i></span> <span ng-show="!!appointmentform.adhaar.error.invalidLen"><i
+								style="color: red;">Doctor Adhaar must be use dot(.) &
+									characters.</i></span>
+                            <div ng-if="appointmentform.adhaar.invalid == true">
+                                <span class="glyphicon glyphicon-remove form-control-feedback" style="color: red;" ng-show="!!appointmentform.adhaar.error.isBlank || !!appointmentform.adhaar.error.invalidChars || !!appointmentform.adhaar.error.invalidLen"></span>
+                            </div>
+                            <div ng-if="appointmentform.adhaar.$pristine == false">
+                                <span class="glyphicon glyphicon-ok form-control-feedback" style="color: green;" ng-show="!loginForm.email.$error.isBlank && !appointmentform.adhaar..$error.invalidChars && !appointmentform.adhaar.$error.invalidLen"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.email.$dirty && appointmentform.email.$valid ,
+                        'has-error' : appointmentform.email.$dirty && appointmentform.email.$invalid}">
+                        <span class="input-group-addon"><i
+							class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="email" class="form-control" id="inputError2" name="password" ng-model="appointment.email" placeholder="Enter Email" valid-Email>
+                        <div class="help-inline">
+                            <span ng-show="!!appointmentform.email.$error.isBlank"><i
+								style="color: red;">email required.</i></span> <span ng-show="!!appointmentform.email.$error.invalidChars"><i
+								style="color: red;">Incorrect email.</i></span> <span ng-show="!!appointmentform.email.$error.invalidLen"><i
+								style="color: red;">Incorrect email.</i></span>
+                            <div ng-if="appointmentform.email.$invalid == true">
+                                <span class="glyphicon glyphicon-remove form-control-feedback" style="color: red;" ng-show="!!appointmentform.email.$error.isBlank || !!appointmentform.email.$error.invalidChars || !!appointmentform.email.$error.invalidLen"></span>
+                            </div>
+                            <div ng-if="appointmentform.email.$pristine == false">
+                                <span class="glyphicon glyphicon-ok form-control-feedback" style="color: green;" ng-show="!appointmentform.email.$error.isBlank && !appointmentform.email.$error.invalidChars && !appointmentform.email.$error.invalidLen"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.mobile.$dirty && appointmentform.email.$valid ,
+                        'has-error' : appointmentform.mobile.$dirty && appointmentform.mobile.$invalid}">
+                        <span class="input-group-addon"><i
+							class="glyphicon glyphicon-phone"></i></span>
+                        <input type="text" class="form-control" id="inputError2" name="mobile" ng-model="appointment.mobile" placeholder="Enter mobile" valid-Mobile>
+                        <div class="help-inline">
+                            <span ng-show="!!loginForm.email.$error.isBlank"><i
+								style="color: red;">mobile required.</i></span> <span ng-show="!!appointmentform.mobile.$error.invalidChars"><i
+								style="color: red;">Incorrect mobile.</i></span> <span ng-show="!!appointmentform.mobile.$error.invalidLen"><i
+								style="color: red;">Incorrect mobile.</i></span>
+                            <div ng-if="appointmentform.mobile.$invalid == true">
+                                <span class="glyphicon glyphicon-remove form-control-feedback" style="color: red;" ng-show="!!appointmentform.mobile.$error.isBlank || !!appointmentform.mobile.$error.invalidChars || !!appointmentform.mobile.$error.invalidLen"></span>
+                            </div>
+                            <div ng-if="appointmentform.email.$pristine == false">
+                                <span class="glyphicon glyphicon-ok form-control-feedback" style="color: green;" ng-show="!appointmentform.mobile.$error.isBlank && !appointmentform.mobile.$error.invalidChars && !appointmentform.mobile.$error.invalidLen"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------------------------- -->
+                    <!--<div class="form-group">
+                        <div class="control-label col-sm-4">
+                            <button class="btn " ng-class="{'btn-primary btn-block' : !loginForm.$valid || loginForm.$pristine || confirm==true, 'btn-success btn-block' : !!loginForm.$valid || !loginForm.$pristine}" ng-disabled="!loginForm.$valid || loginForm.$pristine" ng-click="doctorLogin(loginDetail)">
+                                <span class="glyphicon glyphicon-ok-circle"></span> Log In
+                            </button> {{message}}
+                        </div>
+                    </div>-->
+                    <!-- ---------------------------------------------------------------- -->
+                    <div class="form-group">
+                        <div class="col-md-12 control">
+                            <div style="border-top: 1px solid #888; padding-top: 15px; font-size: 85%">
+                                <b class="text-primary">Want to view/cancel appointment?</b><a href="#/doctorRegistration" onClick="">
+									Click Here</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
