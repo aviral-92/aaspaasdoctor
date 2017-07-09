@@ -1,4 +1,4 @@
-scotchApp.service('responseMapper', function ($http) {
+scotchApp.service('doctorResponseMapper', function ($http) {
 
     this.getDoctor = function (DoctorJavaObj) {
         var doctorUiObj = {
