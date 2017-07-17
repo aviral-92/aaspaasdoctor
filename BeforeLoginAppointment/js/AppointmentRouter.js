@@ -2,14 +2,14 @@ scotchApp.config(function ($routeProvider) {
     $routeProvider
 
         // route for book Appointment
-        .when('/appointment', {
+        .when('/bookAppointment', {
             templateUrl: 'BeforeLoginAppointment/BookAppointment.html',
-            controller: 'appointment'
+            controller: 'bookAppointment'
         })
 
         // route for Search Doctor
-        .when('/appointmentSearch', {
+        .when('/searchDoctor', {
             templateUrl: 'BeforeLoginAppointment/SearchDoctor.html',
-            controller: 'appointmentSearch'
+            controller: 'searchDoctor'
         })
 });

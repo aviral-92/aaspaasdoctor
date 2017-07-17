@@ -1,7 +1,7 @@
-scotchApp.controller('appointment', function ($scope, popUpCalled) {
+scotchApp.controller('bookAppointment', function ($scope, popUpCalled) {
 
 });
 
-scotchApp.controller('appointmentSearch', function ($scope, popUpCalled) {
+scotchApp.controller('searchDoctor', function ($scope, popUpCalled) {
 
 });
