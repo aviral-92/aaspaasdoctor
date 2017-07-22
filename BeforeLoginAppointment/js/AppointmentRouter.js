@@ -10,6 +10,6 @@ scotchApp.config(function ($routeProvider) {
         // route for Search Doctor
         .when('/searchDoctor', {
             templateUrl: 'BeforeLoginAppointment/SearchDoctor.html',
-            controller: 'searchDoctor'
+            controller: 'AppCtrl as ctrl'
         })
 });

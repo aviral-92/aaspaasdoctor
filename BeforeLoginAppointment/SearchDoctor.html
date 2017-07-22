@@ -25,32 +25,26 @@
 
                 <form id="appointmentform" class="form-horizontal" role="form" name="appointmentform">
 
-                    <div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.name.$dirty && appointmentform.adhaar.$valid ,
-                        'has-error' : appointmentform.name.$dirty && appointmentform.name.$invalid}">
-                        <span class="input-group-addon"><i
-							class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" class="form-control" id="inputError2" name="name" ng-model="appointment.name" placeholder="Enter Doctor Expertise" valid-Name>
-                        <div class="help-inline">
-                            <span ng-show="!!appointmentform.name.$error.isBlank"><i
-								style="color: red;">Doctor Name Required.</i></span> <span ng-show="!!appointmentform.name.error.invalidChars"><i
-								style="color: red;">Doctor Name must contain @ & dot(.) .</i></span> <span ng-show="!!appointmentform.name.error.invalidLen"><i
-								style="color: red;">Doctor Name must be use dot(.) &
-									characters.</i></span>
-                            <div ng-if="appointmentform.name.invalid == true">
-                                <span class="glyphicon glyphicon-remove form-control-feedback" style="color: red;" ng-show="!!appointmentform.name.error.isBlank || !!appointmentform.name.error.invalidChars || !!appointmentform.name.error.invalidLen"></span>
-                            </div>
-                            <div ng-if="appointmentform.name.$pristine == false">
-                                <span class="glyphicon glyphicon-ok form-control-feedback" style="color: green;" ng-show="!appointmentform.name.$error.isBlank && !appointmentform.name.$error.invalidChars && !appointmentform.name.$error.invalidLen"></span>
-                            </div>
-                        </div>
-                    </div>
+                    <md-content class="md-padding">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Search for Expertise">
+                                <md-item-template>
+                                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No states matching "{{ctrl.searchText}}" were found.
+                                    <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                                </md-not-found>
+                            </md-autocomplete>
+                        </form>
+                    </md-content>
 
-                    <div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.adhaar.$dirty && appointmentform.adhaar.$valid ,
+
+                    <!--<div style="margin-bottom: 25px;" class="input-group has-feedback " ng-class="{'has-success' : appointmentform.adhaar.$dirty && appointmentform.adhaar.$valid ,
                            'has-error' : appointmentform.adhaar.$dirty && appointmentform.adhaar.$invalid}">
                         <span class="input-group-addon"><i
 							class="glyphicon glyphicon-user"></i></span>
                         <input type="text" class="form-control" id="inputError2" name="adhaar" ng-model="appointment.adhaar" placeholder="Enter Adhaar number" valid-Adhar>
-                        <!-- ng-blur="doBlurAdhar($event)"-->
                         <div class="help-inline">
                             <span ng-show="!!appointmentform.adhaar.$error.isBlank"><b
                                  style="color: red;">Adhaar number Required.</b></span> <span ng-show="!!appointmentform.adhaar.$error.invalidChars"><b
@@ -103,7 +97,7 @@
                                 <span class="glyphicon glyphicon-ok form-control-feedback" style="color: green;" ng-show="!appointmentform.mobile.$error.isBlank && !appointmentform.mobile.$error.invalidChars && !appointmentform.mobile.$error.invalidLen"></span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <div class="control-label col-sm-4 pull-right">
                             <button class="btn " ng-class="{'btn-primary btn-block' : !appointmentform.$valid || appointmentform.$pristine || confirm==true, 'btn-success btn-block' : !!appointmentform.$valid || !appointmentform.$pristine}" ng-disabled="!appointmentform.$valid || appointmentform.$pristine" ng-click="doctorLogin(loginDetail)">
@@ -112,14 +106,14 @@
                         </div>
                     </div>
                 </form>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <div class="col-md-12 control">
                         <div style="border-top: 1px solid #888; padding-top: 15px; font-size: 85%">
                             <b class="text-primary">Want to view/cancel appointment?</b><a href="#/doctorRegistration" onClick="">
 									Click Here</a>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
